@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>Tag: v-rep - Wenj&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/DPlayer.min.css"><script src="/assets/js/DPlayer.min.js"></script></head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    Wenj&#39;s Blog
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Archives</a>
+            
+            <a class="navbar-item "
+               href="/categories">Categories</a>
+            
+            <a class="navbar-item "
+               href="/tags">Tags</a>
+            
+            <a class="navbar-item "
+               href="/cv">CV</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/wenj">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section section-heading">
+    <div class="container">
+        <div class="content">
+            <h5>#v-rep</h5>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+    
+        <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/07/03/vrep-rotate-peashooter/" itemprop="url">Vrep入门：使用Vrep实现一个可以转动的豌豆射手</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-07-03T09:09:16.000Z" itemprop="datePublished">2 天前</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/课堂/">课堂</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            7 分钟 read (About 976 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p>今天初步入门了一下Vrep，为了防止忘记踩过的坑和一些细节，记录一下。</p>
+<p>为了快速使用Vrep，我拿出了几个月没有用过的鼠标。在开始之前，先介绍三个基本的鼠标操作：</p>
+<ol>
+<li>按住鼠标左键拖动，可以移动视图。</li>
+<li>滚动鼠标滚轴，可以放大缩小视图。</li>
+<li>按住中键拖动，可以改变视角。（这大概是我第一次用到这个鼠标操作……）</li>
+</ol>
+<p>打开Vrep，新建一个视图，可以看到这样一个界面：</p>
+<div align="center"><br><img src="/images/vrep_init.PNG" alt="打开Vrep"><br></div><br>场景里有一个水平面，右下角还有一个小小的直角坐标系。按住中键拖动时，这个直角坐标系也会随之旋转。<br><br>实现旋转功能非常简单，只需要转动轴和物体即可。<br><br>首先创建一个球体（或正方体等whatever）。点击Add-&gt;Primitive Shape-&gt;Sphere，在弹出的对话框中可以设置球的半径等参数。确认之后场景中出现一个球体，貌似在默认情况下球下边沿就是和水平面对齐了的。<br><div align="center"><br><img src="/images/vrep_sphere.PNG" alt="创建球体对话框"><br><img src="/images/vrep_create_sphere.PNG" alt="创建球体"><br></div>
+
+<p>接下来创建一个旋转关节，点击Add-&gt;Joint-&gt;Revolute。</p>
+<div align="center"><br><img src="/images/vrep_create_joint.PNG" alt="创建关节"><br></div>
+
+<p>通过菜单栏中的object/item shift和object/item rotate将旋转关节和球体的中轴重合（即x和y坐标设为一致的，z坐标只需将关节下边沿和水平面对齐即可）。</p>
+<div align="center"><br><img src="/images/vrep_joint.PNG" alt="对齐关节和球体"><br></div>
+
+<p>一个方便的对齐方法如下。同时选中关节和球体，将一个的位置应用到另一个。</p>
+<div align="center"><br><img src="/images/vrep_trick1.PNG" alt="另一个对齐的方法"><br></div>
+
+<p>接下来设置两个物体的层级关系，在Scene hierarchy中将Sphere拖入Revolute_joint。</p>
+<div align="center"><br><img src="/images/vrep_scene_hierarchy.PNG" alt="设置层级关系"><br></div>
+
+<p>之后，为了能够使用lua脚本给旋转关节设置速度，建立一个随便什么物体，使旋转关节和球体层级关系上属于这个物体。右键Scene hierarchy中这个物体，Add-&gt;Associated Child Script-&gt;Non threaded。之后这个物体名字右侧会出现一个小的文件图标，双击这个图标就可以查看并修改lua脚本。</p>
+<div align="center"><br><img src="/images/vrep_lua.PNG" alt="设置lua脚本"><br></div>
+
+<p>在lua脚本中，sysCall_init函数添加以下两句。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v0=<span class="number">1</span></span><br><span class="line">handle=sim.getObjectHandle(<span class="string">'Revolute_joint'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>在sysCall_actuation函数中添加以下一句给关节设置速度。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sim.setJointTargetVelocity(handle,v0)</span><br></pre></td></tr></table></figure></p>
+<p>双击Scene hierarchy中旋转关节的图标，在属性中点击最下的Show dynamic properties dialog，然后在新弹出的对话框中，选中Motor enabled。理论上现在就可以转动了。</p>
+<div align="center"><br><img src="/images/vrep_motor_enable.PNG" alt="打开关节转动"><br></div>
+
+<p>最后一步，把豌豆射手的网格模型贴上去。网格模型是我从网上下载的STL模型，通过File-&gt;Import-&gt;Mesh导入即可。为了美观，让这个网格模型叶子的中心和关节的x、y轴对齐。效果差不多是这个样子。</p>
+<div align="center"><br><img src="/images/vrep_mesh.PNG" alt="插入网格模型"><br></div>
+
+<p>然后将网格模型从属于球体。运行之后，这个豌豆射手就可以旋转了。最后我们将除网格之外的所有东西隐藏掉（可以看到Scene Hierarchy中名字变暗了），就可以实现一个旋转的豌豆射手了。隐藏物体时，把对勾全部消掉。</p>
+<div align="center"><br><img src="/images/vrep_hidden.PNG" alt="隐藏物体"><br></div>
+
+<p>最后效果如下：<br><div id="dplayer0" class="dplayer hexo-tag-dplayer-mark" style="margin-bottom: 20px;"></div><script>(function(){var player = new DPlayer({"container":document.getElementById("dplayer0"),"video":{"url":"/images/vrep.mp4"},"danmaku":{"api":"https://api.prprpr.me/dplayer/"}});window.dplayers||(window.dplayers=[]);window.dplayers.push(player);})()</script></p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+    
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2018 Jing Wen&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/wenj">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

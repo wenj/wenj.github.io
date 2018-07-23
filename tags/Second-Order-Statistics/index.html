@@ -102,7 +102,7 @@
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2018-06-27T10:48:55.000Z" itemprop="datePublished">25 天前</time>
+            <time datetime="2018-06-27T10:48:55.000Z" itemprop="datePublished">1 个月前</time>
         </span>
         
         <span class="column is-narrow article-category">
@@ -125,14 +125,14 @@
 <p>表情识别更依赖于面部关键点的扭曲程度而不是是否存在某个关键点，因此作者认为二阶统计量相比于一阶统计量更容易捕捉到面部特征的扭曲程度，更适用于表情的识别。除此之外，covariance pooling还可以捕捉特征在各个帧之间的变化，因此可以被用在视频的表情识别中。</p>
 <p>相较于之前使用协方差矩阵的工作，这篇文章在协方差矩阵的基础上又使用了降维层和non-linear rectification层。这一部分使用了后面提到的manifold network，它主要有两个作用：(1)由于协方差矩阵flatten后直接接全连接层过大，这部分可以起到降维的作用；(2)可以保留原矩阵中的几何信息。我猜测covariance pooling中的pooling是指降维这一部分。但是有一点有待进一步思考：Pooling最主要的作用是不变形还是降维，covariance pooling中是否有能体现不变形的部分？</p>
 <h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>对于图像的表情识别，分成以下几步：</p>
-<p><img src="/images/image_cov.PNG" alt="图像的表情识别"></p>
+<p><img src="/2018/06/27/acharya18-covariance-pooling/images/image_cov.PNG" alt="图像的表情识别"></p>
 <ul>
 <li>由于图像中存在很多不相关信息，首先进行脸部识别，然后根据关键点将人脸摆好。</li>
 <li>接下来将人脸通过CNN输出特征。</li>
 <li>使用CNN得到的特征做covariance pooling，并且把covariance matrix输入到后面接的manifold network中学习深度二阶统计量。</li>
 </ul>
 <p>视频中的表情识别和图像的表情识别类似：</p>
-<p><img src="/images/video_cov.PNG" alt="视频的表情识别"></p>
+<p><img src="/2018/06/27/acharya18-covariance-pooling/images/video_cov.PNG" alt="视频的表情识别"></p>
 <ul>
 <li>在视频中抽取出一些帧，进行脸部识别。</li>
 <li>将各帧中的人脸串接起来输入到3D卷积中。</li>
@@ -156,7 +156,7 @@
 </li>
 </ul>
 <p>把BiMap和ReEig两层用BiRe表示，那么SPDNet结构如下：</p>
-<p><img src="/images/spnnet.PNG" alt="SPDNet"></p>
+<p><img src="/2018/06/27/acharya18-covariance-pooling/images/spnnet.PNG" alt="SPDNet"></p>
 <h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>文章中主要用了Static Facial Expressions in the Wild (SFEW) 2.0 dataset和Real-world Affective Faces (RAF) dataset连个数据集，前者用于图像表情识别，后者用于视频表情识别。</p>
 <p>实验中比较了使用不同的baseline训练或finetune的结果和使用covariance pooling得到的结果，使用covariance pooling可以提升三四个点。实验中还比较了covariance pooling+SPDNet中一些参数的影响，比如SPDNet后使用多少个全连接层以及SPDNet中BiRe层的个数等等，实验结果详见paper。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>看了几篇关于如何在网络中使用二阶统计量后发现，貌似大多数paper到求covariance matrix那里都是一致的，重点在于得到covariance matrix后要怎么处理。针对这篇文章来说，就是使用SPDNet来处理covariance matrix。</p>

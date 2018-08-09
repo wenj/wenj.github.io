@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head>
     <meta charset="utf-8">
-<title>Vrep入门：使用Vrep实现一个可以转动的豌豆射手 - Wenj&#39;s Blog</title>
+<title>机器人小学期（1）：YOLOv1 - Wenj&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="/css/style.css">
 <script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-<link rel="stylesheet" type="text/css" href="/assets/css/DPlayer.min.css"><script src="/assets/js/DPlayer.min.js"></script></head>
+</head>
 <body>
     
 <nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
@@ -92,12 +92,12 @@
     <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            Vrep入门：使用Vrep实现一个可以转动的豌豆射手
+            机器人小学期（1）：YOLOv1
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2018-07-03T09:09:16.000Z" itemprop="datePublished">1 个月前</time>
+            <time datetime="2018-07-23T07:32:16.000Z" itemprop="datePublished">17 天前</time>
         </span>
         
         <span class="column is-narrow article-category">
@@ -109,56 +109,62 @@
         <span class="column is-narrow">
             
             
-            7 分钟 read (About 998 words)
+            12 分钟 read (About 1758 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>今天初步入门了一下Vrep，为了防止忘记踩过的坑和一些细节，记录一下。</p>
-<p>为了快速使用Vrep，我拿出了几个月没有用过的鼠标。在开始之前，先介绍三个基本的鼠标操作：</p>
-<ol>
-<li>按住鼠标左键拖动，可以移动视图。</li>
-<li>滚动鼠标滚轴，可以放大缩小视图。</li>
-<li>按住中键拖动，可以改变视角。（这大概是我第一次用到这个鼠标操作……）</li>
-</ol>
-<p>打开Vrep，新建一个视图，可以看到这样一个界面：</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_init.PNG" alt="打开Vrep"><br></div><br>场景里有一个水平面，右下角还有一个小小的直角坐标系。按住中键拖动时，这个直角坐标系也会随之旋转。<br><br>实现旋转功能非常简单，只需要转动轴和物体即可。<br><br>首先创建一个球体（或正方体等whatever）。点击Add-&gt;Primitive Shape-&gt;Sphere，在弹出的对话框中可以设置球的半径等参数。确认之后场景中出现一个球体，貌似在默认情况下球下边沿就是和水平面对齐了的。<br><div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_sphere.PNG" alt="创建球体对话框"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_create_sphere.PNG" alt="创建球体"><br></div>
+        <blockquote>
+<ul>
+<li><a href="/2018/07/23/机器人小学期（1）：YOLOv1/">机器人小学期（1）：YOLOv1</a></li>
+<li><a href="/2018/07/25/机器人小学期（2）：YOLOv2/">机器人小学期（2）：YOLOv2</a></li>
+<li><a href="/2018/07/26/机器人小学期（3）：YOLOv3/">机器人小学期（3）：YOLOv3</a></li>
+<li><a href="/2018/08/01/机器人小学期（4）：将YOLO应用到自己的数据集上/">机器人小学期（4）：将YOLO应用到自己的数据集上</a></li>
+<li><a href="/2018/08/01/机器人小学期（5）：使用PyTorch实现YOLOv3-tiny/">机器人小学期（5）：使用PyTorch实现YOLOv3-tiny</a></li>
+</ul>
+</blockquote>
+<p>原文链接：<a href="https://arxiv.org/abs/1506.02640" target="_blank" rel="noopener">You Only Look Once: Unified, Real-Time Object Detection</a></p>
+<p>机器人小学期做了一个奇怪的项目，大概是用v-rep这个平台仿真了一个简化版植物大战僵尸（当然，除了有植物有僵尸并且植物会打僵尸，僵尸试图吃点植物外没有什么相同之处）。事实证明使用一个机器人仿真平台来搞游戏虚拟器还是非常灾难的。</p>
+<p>我在项目里负责目标检测部分，简单来说，就是给植物装了一个视觉传感器，我要使用视觉传感器传回来的图像，检测出图像中每个僵尸的bounding box。由于对检测速度要求比较高，因此就使用了YOLO这个网络。</p>
+<p>YOLO已经有了三版（v1、v2、v3）。每一个版本在上一版本的基础上做出了一些修改，使得速度更快，效果更好。本文只包括YOLOv1，也就是最早的一版，和最新的YOLOv3相比，还是有不少差异的。</p>
+<h2 id="YOLOv1"><a href="#YOLOv1" class="headerlink" title="YOLOv1"></a>YOLOv1</h2><p>回忆R-CNN的做法，R-CNN首先使用regional proposal方法选出一些可能的bounding box，然后对这些bounding box做分类，最后再对这些bounding box做筛选、微调。R-CNN把object detection这个任务分成了几个部分，包括选择bounding box和分类等，每部分都由一个专门的网络负责。这样带来的问题是，速度慢并且很难优化。因此YOLO针对这个问题作出了改进：在YOLO里，我们将整张图片作为输入，获得bounding box和分类都在同一个网络中完成（look once），也就是说我们把一整个detection部分看成了一个回归问题。这个做法带来的好处包括：</p>
+<ul>
+<li>速度快：Titan X上可以做到45fps，fast version可以做到150fps。</li>
+<li>直接使用整张图片使得我们可以获得更多的全局信息，相比于Fast R-CNN，YOLO的背景识别错误更少。</li>
+<li>泛化能力更强。</li>
+</ul>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>YOLOv1有两种网络，一个是24个卷积层的YOLO，还有一个简化版的只有9个卷积层的Fast YOLO。下面以24个卷积层的版本为例。</p>
+<p><img src="/2018/07/23/机器人小学期（1）：YOLOv1/network.png" alt="Network"></p>
+<p>网络包含24个卷积层和2个全连接层，通过卷积层提取特征，然后用全连接层预测概率和坐标。</p>
+<p>在具体实现中，除了最后一层的激活函数为ReLU外，其他各层的激活函数均为leaky ReLU，定义如下：</p>
+<p>$$\phi(x)=<br>\begin{cases}<br>x, &amp;\text{if $x&gt;0$} \\<br>0.1x, &amp;\text{otherwise} \<br>\end{cases}$$</p>
+<h3 id="输入和输出"><a href="#输入和输出" class="headerlink" title="输入和输出"></a>输入和输出</h3><p>网络将整个图片作为输入，最后输出一个大小为\(S*S*(B*5+C)\)（注意Tensor大小与v3有所不同）的Tensor。</p>
+<p>我们对于这个输出Tensor做一点解释。我们将输入图像划分成\(S*S\)的网格，对于网格中的每个格子，我们要预测\(B\)个中心落在这个格子里的bounding box。每个bounding box有5个参数，分别是中点的\(x\)、\(y\)坐标以及宽度\(w\)和高度\(h\)，此外，还包含一个置信值\(Pr(Object)*IOU_{pred}^{truth}\)表示这个bounding box里包含一个物体的概率乘上它和真实值的IOU。最后，对于每个格子，我们还要预测\(C\)个参数，其中第\(i\)个参数\(Pr(C_i|Object)\)表示在格子里有物体的情况下，这个物体属于第\(i\)类的概率。</p>
+<p>根据置信值和属于各类别的概率，我们可以求出各类别的置信值：</p>
+<p>$$Pr(Class_i|Object)*Pr(Object)*IOU_{pred}^{truth}$$</p>
+<p>额外说明一点，\(x\)、\(y\)是相对这个格子的坐标，并且归一化到了\([0,1]\)区间；宽度\(w\)和高度\(h\)是相对于正常图片的，也归一化到了\([0,1]\)区间。</p>
+<div style="text-align:center" markdown="1"><br><img src="/2018/07/23/机器人小学期（1）：YOLOv1/output.png" alt="输出"><br></div>
 
-<p>接下来创建一个旋转关节，点击Add-&gt;Joint-&gt;Revolute。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_create_joint.PNG" alt="创建关节"><br></div>
-
-<p>通过菜单栏中的object/item shift和object/item rotate将旋转关节和球体的中轴重合（即x和y坐标设为一致的，z坐标只需将关节下边沿和水平面对齐即可）。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_joint.PNG" alt="对齐关节和球体"><br></div>
-
-<p>一个方便的对齐方法如下。同时选中关节和球体，将一个的位置应用到另一个。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_trick1.PNG" alt="另一个对齐的方法"><br></div>
-
-<p>接下来设置两个物体的层级关系，在Scene hierarchy中将Sphere拖入Revolute_joint。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_scene_hierarchy.PNG" alt="设置层级关系"><br></div>
-
-<p>之后，为了能够使用lua脚本给旋转关节设置速度，建立一个随便什么物体，使旋转关节和球体层级关系上属于这个物体。右键Scene hierarchy中这个物体，Add-&gt;Associated Child Script-&gt;Non threaded。之后这个物体名字右侧会出现一个小的文件图标，双击这个图标就可以查看并修改lua脚本。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_lua.PNG" alt="设置lua脚本"><br></div>
-
-<p>在lua脚本中，sysCall_init函数添加以下两句。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v0=<span class="number">1</span></span><br><span class="line">handle=sim.getObjectHandle(<span class="string">'Revolute_joint'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>在sysCall_actuation函数中添加以下一句给关节设置速度。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sim.setJointTargetVelocity(handle,v0)</span><br></pre></td></tr></table></figure></p>
-<p>双击Scene hierarchy中旋转关节的图标，在属性中点击最下的Show dynamic properties dialog，然后在新弹出的对话框中，选中Motor enabled。理论上现在就可以转动了。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_motor_enable.PNG" alt="打开关节转动"><br></div>
-
-<p>最后一步，把豌豆射手的网格模型贴上去。网格模型是我从网上下载的STL模型，通过File-&gt;Import-&gt;Mesh导入即可。为了美观，让这个网格模型叶子的中心和关节的x、y轴对齐。效果差不多是这个样子。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_mesh.PNG" alt="插入网格模型"><br></div>
-
-<p>然后将网格模型从属于球体。运行之后，这个豌豆射手就可以旋转了。最后我们将除网格之外的所有东西隐藏掉（可以看到Scene Hierarchy中名字变暗了），就可以实现一个旋转的豌豆射手了。隐藏物体时，把对勾全部消掉。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_hidden.PNG" alt="隐藏物体"><br></div>
-
-<p>最后效果如下：<br><div id="dplayer0" class="dplayer hexo-tag-dplayer-mark" style="margin-bottom: 20px;"></div><script>(function(){var player = new DPlayer({"container":document.getElementById("dplayer0"),"video":{"url":"/images/vrep.mp4"},"danmaku":{"api":"https://api.prprpr.me/dplayer/"}});window.dplayers||(window.dplayers=[]);window.dplayers.push(player);})()</script></p>
+<h3 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h3><p>最后，我们还需要定义损失函数。</p>
+<p>为了便于优化，我们使用误差的平方和作为损失函数，但是这会带来两方面的问题：</p>
+<ul>
+<li>定位错误和分类错误同等对待。</li>
+<li>在一张图片中往往有很多格子是不包含物体的，这写格子的置信值会逐渐趋于0，这会淹没那些包含物体的格子的误差。（置信值confidence score为为\(Pr(Object)*IOU_{pred}^{truth}\)。）</li>
+<li>不同尺寸的物体在计算错误时也被平等对待了。但是很明显，相同的bounding box的误差出现在预测尺寸较大的物体可能并不显眼，但是如果出现在预测尺寸较小的物体上时就会很严重。</li>
+</ul>
+<p>为了解决前两个问题，我们赋予定位错误和预测是否包含物体的错误不同的权重，其中定位错误的权重\(\lambda_{coord}=5\)，预测是否包含物体的错误的权重\(\lambda_{noobj}\)。</p>
+<p>为了解决第三个问题，我们不直接使用bounding box的高度\(w\)和宽度\(h\)计算，而是使用它们开根号后计算误差。</p>
+<p>最后，我们得到一个形如下式的损失函数，</p>
+<p>$$\begin{align} &amp;\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=1}^{B}\mathbb{1}_{ij}^{obj}[(x_i-\hat{x}_i)^2+(y_i-\hat{y}_i)^2] \\ +&amp;\lambda_{coord}\sum_{i=0}^{S^2}\sum_{j=1}^{B}\mathbb{1}_{ij}^{obj}[(\sqrt{w_i}-\sqrt{\hat{w}_i})^2+(\sqrt{h_i}-\sqrt{\hat{h}_i})^2] \\ +&amp;\sum_{i=0}^{S^2}\sum_{j=1}^{B}\mathbb{1}_{ij}^{obj}(C_i-\hat{C}_i)^2+\lambda_{noobj}\sum_{i=0}^{S^2}\sum_{j=1}^{B}\mathbb{1}_{ij}^{obj}(C_i-\hat{C}_i)^2 \\ +&amp;\sum_{i=1}^{S^2}\mathbb{1}_{i}^{obj}\sum_{c\in classes}(p_i(c)-\hat{p}_i(c))^2 \end{align}$$</p>
+<p>\(\mathbb{1}_{ij}^{obj}\)表示第\(i\)个格子里的第\(j\)个预测“负责”预测这个物体，\(\mathbb{1}_i^{obj}\)表示物体\(obj\)出现在第\(i\)个格子里。（“负责”预测这个物体是指这个预测的bounding box和某个真实值的IOU是所有预测中最大的，IOU为Intersection of Units，即两个bounding box面积的交/并。）</p>
 
     
     </div>
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/v-rep/">#v-rep</a></span>
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Object-Detection/">#Object Detection</a></span>
     
     </div>
     
@@ -166,12 +172,12 @@
     <div class="columns is-mobile is-multiline article-nav">
         <span class="column is-12-mobile is-half-desktop  article-nav-prev">
             
-            <a href="/2018/07/12/2018-7-12/">2018-7-12</a>
+            <a href="/2018/07/25/机器人小学期（2）：YOLOv2/">机器人小学期（2）：YOLOv2</a>
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">
             
-            <a href="/2018/06/29/2018-6-29/">2018-6-29</a>
+            <a href="/2018/07/22/2018-7-22/">2018-7-22</a>
             
         </span>
     </div>

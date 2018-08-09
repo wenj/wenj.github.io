@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head>
     <meta charset="utf-8">
-<title>Vrep入门：使用Vrep实现一个可以转动的豌豆射手 - Wenj&#39;s Blog</title>
+<title>机器人小学期（2）：YOLOv2 - Wenj&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -26,7 +26,7 @@
 <link rel="stylesheet" href="/css/style.css">
 <script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-<link rel="stylesheet" type="text/css" href="/assets/css/DPlayer.min.css"><script src="/assets/js/DPlayer.min.js"></script></head>
+</head>
 <body>
     
 <nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
@@ -92,12 +92,12 @@
     <article class="article content gallery" itemscope itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            Vrep入门：使用Vrep实现一个可以转动的豌豆射手
+            机器人小学期（2）：YOLOv2
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2018-07-03T09:09:16.000Z" itemprop="datePublished">1 个月前</time>
+            <time datetime="2018-07-25T02:39:34.000Z" itemprop="datePublished">15 天前</time>
         </span>
         
         <span class="column is-narrow article-category">
@@ -109,56 +109,56 @@
         <span class="column is-narrow">
             
             
-            7 分钟 read (About 998 words)
+            11 分钟 read (About 1593 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p>今天初步入门了一下Vrep，为了防止忘记踩过的坑和一些细节，记录一下。</p>
-<p>为了快速使用Vrep，我拿出了几个月没有用过的鼠标。在开始之前，先介绍三个基本的鼠标操作：</p>
-<ol>
-<li>按住鼠标左键拖动，可以移动视图。</li>
-<li>滚动鼠标滚轴，可以放大缩小视图。</li>
-<li>按住中键拖动，可以改变视角。（这大概是我第一次用到这个鼠标操作……）</li>
-</ol>
-<p>打开Vrep，新建一个视图，可以看到这样一个界面：</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_init.PNG" alt="打开Vrep"><br></div><br>场景里有一个水平面，右下角还有一个小小的直角坐标系。按住中键拖动时，这个直角坐标系也会随之旋转。<br><br>实现旋转功能非常简单，只需要转动轴和物体即可。<br><br>首先创建一个球体（或正方体等whatever）。点击Add-&gt;Primitive Shape-&gt;Sphere，在弹出的对话框中可以设置球的半径等参数。确认之后场景中出现一个球体，貌似在默认情况下球下边沿就是和水平面对齐了的。<br><div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_sphere.PNG" alt="创建球体对话框"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_create_sphere.PNG" alt="创建球体"><br></div>
+        <blockquote>
+<ul>
+<li><a href="/2018/07/23/机器人小学期（1）：YOLOv1/">机器人小学期（1）：YOLOv1</a></li>
+<li><a href="/2018/07/25/机器人小学期（2）：YOLOv2/">机器人小学期（2）：YOLOv2</a></li>
+<li><a href="/2018/07/26/机器人小学期（3）：YOLOv3/">机器人小学期（3）：YOLOv3</a></li>
+<li><a href="/2018/08/01/机器人小学期（4）：将YOLO应用到自己的数据集上/">机器人小学期（4）：将YOLO应用到自己的数据集上</a></li>
+<li><a href="/2018/08/01/机器人小学期（5）：使用PyTorch实现YOLOv3-tiny/">机器人小学期（5）：使用PyTorch实现YOLOv3-tiny</a></li>
+</ul>
+</blockquote>
+<p>原文链接：<a href="https://arxiv.org/abs/1612.08242" target="_blank" rel="noopener">YOLO9000: Better, Faster,Stronger</a></p>
+<p>YOLO9000是YOLO系列的第二版，在后面都是用YOLOv2表示。在YOLO的基础上，YOLOv2提出了诸多改进，核心就是让YOLO更快、更准确。YOLOv2中的模型YOLO9000号称可以检测9000个类别，并且可以支持一些类别没有detection label的情况下，来进行detection的工作，当然这部分的准确率还不算太高。</p>
+<p>在这篇博客里，我将按照论文里的逻辑，分成Better、Faster和Stronger三个部分来描述论文里提出的改进。</p>
+<h2 id="Better"><a href="#Better" class="headerlink" title="Better"></a>Better</h2><p>YOLOv2和YOLOv1相比，准确率得到了一些提升。在YOLOv1中比较显著的localization error较高以及recall低的问题，在YOLOv2中都得到了一些改善。为了使模型准确率更高，YOLOv2做出了以下改变：</p>
+<ul>
+<li><p><strong>Batch Normalization</strong>：YOLOv2在所有卷积层后面加了batch normalization，并删除了原来的dropout层，这使得mAP有2%的提升。</p>
+</li>
+<li><p><strong>High Resolution Classifier</strong>：在YOLOv2中，使用了448*448的分辨率。训练时，首先在ImageNet上对分类网络finetune 10个epoch，然后再finetune detection部分。这个操作使得mAP上涨4个点。</p>
+</li>
+<li><p><strong>Anchor Boxes and Prediction</strong>：YOLOv1中使用全连接层来直接预测bounding box，但在YOLOv2中，我们改用anchor boxes来预测bounding box。</p>
+<p>如果我们打开yolo的<a href="https://github.com/pjreddie/darknet" target="_blank" rel="noopener">代码仓库</a>，找到里面的<code>.cfg</code>文件，可以看到在网络配置里有这么一行（以<code>yolov2-tiny.cfg</code>为例）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchors =  0.57273, 0.677385, 1.87446, 2.06253, 3.33843, 5.47434, 7.88282, 3.52778, 9.77052, 9.16828</span><br></pre></td></tr></table></figure>
+<p>这就是yolov2-tiny网络中使用的anchor，这其中每两个为一对，分别对应于x方向和y方向，上面这行显示的就是5个anchor。</p>
+<p>那么这些anchor是怎么生成的呢？首先我们拿到训练数据里所有bounding box的宽度和高度\((w,h)\)，并假设这些bounding box的中心都在同一个点上，这样我们就得到了一组以同一个点为中心的长方形，对这些\((w,h)\)做k-means clustering，就可以得到\(k\)个聚类中心，也就是我们要的\(k\)个anchor，在实验中，我们发现\(k=5\)时的效果最好。为了更符合我们的任务，做k-means clustering时不使用欧几里得距离作为距离的衡量，而是使用IOU的大小作为距离的衡量，也即：<br>$$d(\text{box},\text{centroid})=1-\text{IOU}(\text{box},\text{centroid})$$</p>
+<p>现在，我们获得了所有的anchor，接下来，我们需要调整网络的输出。<br><div style="width:80%;padding-left:20%;text-align:center" markdown="1"><br><img src="/2018/07/25/机器人小学期（2）：YOLOv2/bbox.png" alt="Bounding Box"><br></div><br>和YOLOv1一样，如果输入图像分辨率为416*416，我们可以将输入图像划分为13*13个格子，其中每个格子大小为32*32，这样我们就会输出一个13*13的feature map，其中feature map的每一维也是一个向量，对应于中心点落在这个格子里的那些bounding box。在YOLOv2中，我们在每个格子里预测出5个bounding box，也就是五组中心坐标\((b_x,b_y)\)，宽度\(b_w\)，高度\(b_h\)以及置信值\(Pr(\text{Object})*\text{IOU}(b, \text{Object}))\)。值得注意的是，YOLOv2中不在直接输出这5个数，而是输出变化前的5个值\(t_x,t_y,t_w,t_h,t_o\)，然后经过变换</p>
+<p>$$\begin{align}<br>b_x&amp;=\sigma(t_x)+c_x \\<br>b_y&amp;=\sigma(t_y)+c_y \\<br>b_w&amp;=p_we^{t_w} \\<br>b_h&amp;=p_he^{t_h} \\<br>Pr(\text{Object})*\text{IOU}(b, \text{Object}))&amp;=\sigma(t_o)<br>\end{align}$$</p>
+<p>就可以得到\(b_x,b_y,b_w,b_h,Pr(\text{Object})*\text{IOU}(b, \text{Object}))\)。其中\(\sigma(x)\)表示Sigmoid函数，\((c_x,c_y)\)是这个格子左上角的坐标，\(p_w,p_h\)就是我们直接求出的anchor，5个bounding box正好对应于5个不同的anchor。</p>
+</li>
+<li><p><strong>Fine-Grained Features</strong>：修改后的YOLOv2在13*13的特征图上进行预测，但是这样的分辨率可能和对于小尺度不利。Faster R-CNN和SSD在不同的特征图上跑proposal network来获得不同的分辨率，但在YOLOv2里，我们直接使用一个passthrough layer将前面层里的26*26分辨率的特征图和低分辨率的特征图用类似于ResNet中连Identity Mapping的方法连起来（我们把26*26*512特征图转换成13*13*2048，然后就可以和13*13的特征图连起来）。然后我们把这个特征图上做检测。这可以使performance提高1%。</p>
+</li>
+<li><p><strong>Multi-Scale Training</strong>：YOLOv2把416*416作为输入的分辨率，但是由于网络里只有卷积核和max pooling，因此希望YOLOv2在应对不同分辨率的输入时有鲁棒性。我们可以在训练里不固定输入的大小，而是每10个epoch就随机选取另一个大小的图像，由于我们在网络里降采样的倍数是32，所以我们让所有的分辨率都是32的倍数（{320; 352; …; 608}），这样网络就需要不停的学习预测不同分辨率的图像。</p>
+<p>在低分辨率的图像中，YOLOv2可以达到90FPS的速度，mAP和Fast R-CNN差不多。在高分辨率的图像中，YOLOv2仍可以达到实时的速度，78.6mAP。</p>
+</li>
+</ul>
+<h2 id="Faster"><a href="#Faster" class="headerlink" title="Faster"></a>Faster</h2><p>YOLOv2没有使用VGG-16作为baseline，而是构建了一个新网络<strong>Darknet-19</strong>，这个网络包含19和卷积层和5个maxpooling，结构如下：</p>
+<div style="width:80%;padding-left:20%;text-align:center" markdown="1"><br><img src="/2018/07/25/机器人小学期（2）：YOLOv2/network.png" alt="Darknet-19"><br></div>
 
-<p>接下来创建一个旋转关节，点击Add-&gt;Joint-&gt;Revolute。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_create_joint.PNG" alt="创建关节"><br></div>
-
-<p>通过菜单栏中的object/item shift和object/item rotate将旋转关节和球体的中轴重合（即x和y坐标设为一致的，z坐标只需将关节下边沿和水平面对齐即可）。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_joint.PNG" alt="对齐关节和球体"><br></div>
-
-<p>一个方便的对齐方法如下。同时选中关节和球体，将一个的位置应用到另一个。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_trick1.PNG" alt="另一个对齐的方法"><br></div>
-
-<p>接下来设置两个物体的层级关系，在Scene hierarchy中将Sphere拖入Revolute_joint。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_scene_hierarchy.PNG" alt="设置层级关系"><br></div>
-
-<p>之后，为了能够使用lua脚本给旋转关节设置速度，建立一个随便什么物体，使旋转关节和球体层级关系上属于这个物体。右键Scene hierarchy中这个物体，Add-&gt;Associated Child Script-&gt;Non threaded。之后这个物体名字右侧会出现一个小的文件图标，双击这个图标就可以查看并修改lua脚本。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_lua.PNG" alt="设置lua脚本"><br></div>
-
-<p>在lua脚本中，sysCall_init函数添加以下两句。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v0=<span class="number">1</span></span><br><span class="line">handle=sim.getObjectHandle(<span class="string">'Revolute_joint'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>在sysCall_actuation函数中添加以下一句给关节设置速度。<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sim.setJointTargetVelocity(handle,v0)</span><br></pre></td></tr></table></figure></p>
-<p>双击Scene hierarchy中旋转关节的图标，在属性中点击最下的Show dynamic properties dialog，然后在新弹出的对话框中，选中Motor enabled。理论上现在就可以转动了。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_motor_enable.PNG" alt="打开关节转动"><br></div>
-
-<p>最后一步，把豌豆射手的网格模型贴上去。网格模型是我从网上下载的STL模型，通过File-&gt;Import-&gt;Mesh导入即可。为了美观，让这个网格模型叶子的中心和关节的x、y轴对齐。效果差不多是这个样子。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_mesh.PNG" alt="插入网格模型"><br></div>
-
-<p>然后将网格模型从属于球体。运行之后，这个豌豆射手就可以旋转了。最后我们将除网格之外的所有东西隐藏掉（可以看到Scene Hierarchy中名字变暗了），就可以实现一个旋转的豌豆射手了。隐藏物体时，把对勾全部消掉。</p>
-<div align="center"><br><img src="/2018/07/03/vrep-rotate-peashooter/vrep_hidden.PNG" alt="隐藏物体"><br></div>
-
-<p>最后效果如下：<br><div id="dplayer0" class="dplayer hexo-tag-dplayer-mark" style="margin-bottom: 20px;"></div><script>(function(){var player = new DPlayer({"container":document.getElementById("dplayer0"),"video":{"url":"/images/vrep.mp4"},"danmaku":{"api":"https://api.prprpr.me/dplayer/"}});window.dplayers||(window.dplayers=[]);window.dplayers.push(player);})()</script></p>
+<h2 id="Stronger"><a href="#Stronger" class="headerlink" title="Stronger"></a>Stronger</h2><p>YOLOv2使用一种机制，可以同时训练classification和detection两部分的数据。细节还没有研究清楚。</p>
 
     
     </div>
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/v-rep/">#v-rep</a></span>
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Object-Detection/">#Object Detection</a></span>
     
     </div>
     
@@ -166,12 +166,12 @@
     <div class="columns is-mobile is-multiline article-nav">
         <span class="column is-12-mobile is-half-desktop  article-nav-prev">
             
-            <a href="/2018/07/12/2018-7-12/">2018-7-12</a>
+            <a href="/2018/07/26/机器人小学期（3）：YOLOv3/">机器人小学期（3）：YOLOv3</a>
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">
             
-            <a href="/2018/06/29/2018-6-29/">2018-6-29</a>
+            <a href="/2018/07/23/机器人小学期（1）：YOLOv1/">机器人小学期（1）：YOLOv1</a>
             
         </span>
     </div>

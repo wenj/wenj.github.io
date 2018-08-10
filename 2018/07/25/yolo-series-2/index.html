@@ -138,7 +138,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anchors =  0.57273, 0.677385, 1.87446, 2.06253, 3.33843, 5.47434, 7.88282, 3.52778, 9.77052, 9.16828</span><br></pre></td></tr></table></figure>
 <p>这就是yolov2-tiny网络中使用的anchor，这其中每两个为一对，分别对应于x方向和y方向，上面这行显示的就是5个anchor。</p>
 <p>那么这些anchor是怎么生成的呢？首先我们拿到训练数据里所有bounding box的宽度和高度\((w,h)\)，并假设这些bounding box的中心都在同一个点上，这样我们就得到了一组以同一个点为中心的长方形，对这些\((w,h)\)做k-means clustering，就可以得到\(k\)个聚类中心，也就是我们要的\(k\)个anchor，在实验中，我们发现\(k=5\)时的效果最好。为了更符合我们的任务，做k-means clustering时不使用欧几里得距离作为距离的衡量，而是使用IOU的大小作为距离的衡量，也即：<br>$$d(\text{box},\text{centroid})=1-\text{IOU}(\text{box},\text{centroid})$$</p>
-<p>现在，我们获得了所有的anchor，接下来，我们需要调整网络的输出。<br><div style="width:80%;padding-left:20%;text-align:center" markdown="1"><br><img src="/2018/07/25/yolo-series-2/bbox.png" alt="Bounding Box"><br></div><br>和YOLOv1一样，如果输入图像分辨率为416*416，我们可以将输入图像划分为13*13个格子，其中每个格子大小为32*32，这样我们就会输出一个13*13的feature map，其中feature map的每一维也是一个向量，对应于中心点落在这个格子里的那些bounding box。在YOLOv2中，我们在每个格子里预测出5个bounding box，也就是五组中心坐标\((b_x,b_y)\)，宽度\(b_w\)，高度\(b_h\)以及置信值\(Pr(\text{Object})*\text{IOU}(b, \text{Object}))\)。值得注意的是，YOLOv2中不在直接输出这5个数，而是输出变化前的5个值\(t_x,t_y,t_w,t_h,t_o\)，然后经过变换</p>
+<p>现在，我们获得了所有的anchor，接下来，我们需要调整网络的输出。<br><div style="width:80%;padding-left:20%;text-align:center" markdown="1"><br><img src="/2018/07/25/yolo-series-2/bbox.PNG" alt="Bounding Box"><br></div><br>和YOLOv1一样，如果输入图像分辨率为416*416，我们可以将输入图像划分为13*13个格子，其中每个格子大小为32*32，这样我们就会输出一个13*13的feature map，其中feature map的每一维也是一个向量，对应于中心点落在这个格子里的那些bounding box。在YOLOv2中，我们在每个格子里预测出5个bounding box，也就是五组中心坐标\((b_x,b_y)\)，宽度\(b_w\)，高度\(b_h\)以及置信值\(Pr(\text{Object})*\text{IOU}(b, \text{Object}))\)。值得注意的是，YOLOv2中不在直接输出这5个数，而是输出变化前的5个值\(t_x,t_y,t_w,t_h,t_o\)，然后经过变换</p>
 <p>$$\begin{align}<br>b_x&amp;=\sigma(t_x)+c_x \\<br>b_y&amp;=\sigma(t_y)+c_y \\<br>b_w&amp;=p_we^{t_w} \\<br>b_h&amp;=p_he^{t_h} \\<br>Pr(\text{Object})*\text{IOU}(b, \text{Object}))&amp;=\sigma(t_o)<br>\end{align}$$</p>
 <p>就可以得到\(b_x,b_y,b_w,b_h,Pr(\text{Object})*\text{IOU}(b, \text{Object}))\)。其中\(\sigma(x)\)表示Sigmoid函数，\((c_x,c_y)\)是这个格子左上角的坐标，\(p_w,p_h\)就是我们直接求出的anchor，5个bounding box正好对应于5个不同的anchor。</p>
 </li>
@@ -149,7 +149,7 @@
 </li>
 </ul>
 <h2 id="Faster"><a href="#Faster" class="headerlink" title="Faster"></a>Faster</h2><p>YOLOv2没有使用VGG-16作为baseline，而是构建了一个新网络<strong>Darknet-19</strong>，这个网络包含19和卷积层和5个maxpooling，结构如下：</p>
-<div style="width:80%;padding-left:20%;text-align:center" markdown="1"><br><img src="/2018/07/25/yolo-series-2/network.png" alt="Darknet-19"><br></div>
+<div style="width:80%;padding-left:20%;text-align:center" markdown="1"><br><img src="/2018/07/25/yolo-series-2/network.PNG" alt="Darknet-19"><br></div>
 
 <h2 id="Stronger"><a href="#Stronger" class="headerlink" title="Stronger"></a>Stronger</h2><p>YOLOv2使用一种机制，可以同时训练classification和detection两部分的数据。细节还没有研究清楚。</p>
 

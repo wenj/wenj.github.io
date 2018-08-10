@@ -136,9 +136,9 @@
 <h3 id="基于不同尺度的预测"><a href="#基于不同尺度的预测" class="headerlink" title="基于不同尺度的预测"></a>基于不同尺度的预测</h3><p>YOLOv3依旧使用一组anchor来辅助不同尺度的预测，不同之处在于，YOLOv3使用了9个anchor，将这9个anchor分成3组看作3个不同的尺度。在每个预测层中，我们只使用其中一组3个anchor，相应的每个格子给出3个预测bounding box。</p>
 <p>我们按照如下方法使用这3个不同的尺度。首先在基础特征提取器上，我们连接几个卷积层，然后接第一个尺度的预测层。然后，取出之前两层的特征图升采样两倍，再和之前某一层的特征图接起来，再通过几个卷积层，接入下一个尺度的预测层。以此类推。</p>
 <h3 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h3><p>YOLOv3融合了YOLOv2中Darknet-19和ResNet的想法，提出了新的特征提取器，如图。</p>
-<div style="width:80%;padding-left:20%;text-align:center" markdown="1"><br><img src="/2018/07/26/yolo-series-3/yolov3.png" alt="Darknet-53"><br></div>
+<div style="width:80%;padding-left:20%;text-align:center" markdown="1"><br><img src="/2018/07/26/yolo-series-3/yolov3.PNG" alt="Darknet-53"><br></div>
 
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><div style="width:100%;text-align:center" markdown="1"><br><img src="/2018/07/26/yolo-series-3/result.png" alt="不同model比较"><br></div>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><div style="width:100%;text-align:center" markdown="1"><br><img src="/2018/07/26/yolo-series-3/result.PNG" alt="不同model比较"><br></div>
 
 <h2 id="无效的尝试"><a href="#无效的尝试" class="headerlink" title="无效的尝试"></a>无效的尝试</h2><p>作者在文中还提到了一些尝试过但效果不好的做法：</p>
 <ul>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>机器人小学期（4）：将YOLO应用到自己的数据集上 - Wenj&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                    
+                    Wenj&#39;s Blog
+                    
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Archives</a>
+            
+            <a class="navbar-item "
+               href="/categories">Categories</a>
+            
+            <a class="navbar-item "
+               href="/tags">Tags</a>
+            
+            <a class="navbar-item "
+               href="/cv">CV</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/links">Links</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" href="https://github.com/wenj">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            机器人小学期（4）：将YOLO应用到自己的数据集上
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-08-01T18:26:43.000Z" itemprop="datePublished">9 天前</time>
+        </span>
+        
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/课堂/">课堂</a>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            9 分钟 read (About 1408 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<ul>
+<li><a href="/2018/07/23/yolo-series-1/">机器人小学期（1）：YOLOv1</a></li>
+<li><a href="/2018/07/25/yolo-series-2/">机器人小学期（2）：YOLOv2</a></li>
+<li><a href="/2018/07/26/yolo-series-3/">机器人小学期（3）：YOLOv3</a></li>
+<li><a href="/2018/08/01/yolo-series-4/">机器人小学期（4）：将YOLO应用到自己的数据集上</a></li>
+<li><a href="/2018/08/01/yolo-series-5/">机器人小学期（5）：使用PyTorch实现YOLOv3-tiny</a></li>
+</ul>
+</blockquote>
+<p><a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener">YOLO主页</a>上提供了很详细的教程，讲解如何使用作者提供的YOLO实现，其中包括如何使用pretrain的model，如何在VOC和COCO数据集上训练。在这篇文章中，我们来看一下如何能将作者提供的YOLO实现应用到自己的数据集上。</p>
+<h2 id="安装YOLO"><a href="#安装YOLO" class="headerlink" title="安装YOLO"></a>安装YOLO</h2><p>首先，我们需要跟着主页上的教程安装YOLO。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/pjreddie/darknet</span><br><span class="line">cd darknet</span><br><span class="line">make</span><br></pre></td></tr></table></figure></p>
+<p>如果想使用GPU的话，要在make之前把Makefile中前两行置1。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GPU=1</span><br><span class="line">CUDNN=1</span><br></pre></td></tr></table></figure></p>
+<h2 id="调整我们的数据集"><a href="#调整我们的数据集" class="headerlink" title="调整我们的数据集"></a>调整我们的数据集</h2><p>在<a href="https://drive.google.com/open?id=12L_EaycwTanf771Au4S1xKV_IwVtph3e" target="_blank" rel="noopener">此链接</a>中有我制作的数据集。我们来看一下数据集里都需要什么内容：</p>
+<ul>
+<li>训练集和验证集的图片<code>images/</code></li>
+<li><p>训练集和验证集的label <code>labels/</code>：目录下的每个label文件名和图片对应，把图片文件名的格式<code>.png/jpg/...</code>改成<code>.txt</code>。label文件中，从第一行开始每行表示一个bounding box。每个bounding box包含5个参数，依次是类别（从0开始），x，y，w，h。其中(x,y)是bounding box的中心点位置，w表示bounding box的宽度，h表示bounding box的高度。注意，后四个参数都要除以图片的尺寸以获得[0,1]的数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0.4140625 0.51953125 0.125 0.17578125</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一个文本文件，包含了训练集中所有图片的路径<code>train.txt</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/home/robot/Desktop/PVZ/data/images/1.png</span><br><span class="line">/home/robot/Desktop/PVZ/data/images/2.png</span><br><span class="line">/home/robot/Desktop/PVZ/data/images/3.png</span><br><span class="line">/home/robot/Desktop/PVZ/data/images/4.png</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一个文本文件，包含了验证集中所有图片的路径<code>valid.txt</code>：和<code>train.txt</code>类似。</p>
+</li>
+<li>一个文本文件，包含了所有类别的名字<code>zombie.name</code>：从第一行开始每行写一个名字，第一行为第0类的名字，第二行为第1类的名字，以此类推。比如在我们的数据集中只有一类，这类名字叫Marty，因此只有一行，上面写着Marty。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Marty</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>到现在为止，我们的数据集就已经创建好了，接下来我们要做的就是把数据喂进YOLO中进行训练。</p>
+<h2 id="使用YOLO训练"><a href="#使用YOLO训练" class="headerlink" title="使用YOLO训练"></a>使用YOLO训练</h2><p>接下来，我们来看一下如何训练。由于我在项目中使用的是YOLOv3-tiny这个网络，所以下面都以这个网络为例。</p>
+<p>在<code>darknet/cfg/</code>中有很多<code>.cfg</code>文件，这个文件描述了网络结构和一些训练参数，因为darknet实现了一套自己的底层框架，所以如果你先构建新的网络，也需要按照这个格式来。</p>
+<p>打开<code>darknet/cfg/yolov3-tiny.cfg</code>文件，为了能使用我们自己的数据集，还要对其做一些调整。为了方便起见，我们创建两个<code>.cfg</code>文件，<code>yolov3-tiny.cfg</code>用于训练和<code>yolov3-tina-testing.cfg</code>用于测试。</p>
+<ul>
+<li><p>在<code>yolov3-tiny.cfg</code>文件中我们将<code>[net]</code>中的batch size设为64，subdivision设为2。在<code>yolov3-tiny.cfg-testing</code>文件中我们将<code>[net]</code>中的batch size设为1，subdivision设为1。<br><code>yolov3-tiny.cfg</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Testing</span><br><span class="line">batch=1</span><br><span class="line">subdivisions=1</span><br></pre></td></tr></table></figure>
+<p><code>yolov3-tiny-testing.cfg</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Testing</span><br><span class="line">batch=64</span><br><span class="line">subdivisions=2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据自己的数据集调整<code>[net]</code>中的<code>width</code>和<code>height</code>，比如在我的数据集中图片是512*512的，所以有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">width=512</span><br><span class="line">height=512</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接下来，我们要把所有<code>yolo</code>层里的<code>classes</code>改成自己的数据集中的类别数。比如我的数据集中只有一类，因此<code>classes=1</code>。</p>
+</li>
+<li>最后也是最重要的一步，我们需要对每个<code>yolo</code>层前的卷积层的输出channel数做调整。根据<a href="/2018/07/26/yolo-series-3/">上一篇文章</a>，我们知道输出时每个格子对应的channel为\3*(4+1+num_classes\)，所以要把<code>filters</code>改为这个数。比如在我的数据集中，只有一类，那输出channel数为18，因此改成<code>filters=18</code>。</li>
+</ul>
+<p>在修改完网络后，我们还需要建立一个新文件<code>zombie.data</code>，里面包含了训练时所用的一些目录的信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">classes = 1</span><br><span class="line">train = /home/robot/Desktop/PVZ/data/train.txt</span><br><span class="line">valid = /home/robot/Desktop/PVZ/data/valid.txt</span><br><span class="line">names = /home/robot/Desktop/PVZ/data/zombie.name</span><br><span class="line">backup = backup</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>classes</code>表示数据集中的类别数目，<code>train</code>指向上一节提到的<code>train.txt</code>所在位置，<code>valid</code>指向上一节提到的<code>valid.txt</code>所在位置，<code>names</code>指向类别名字的文件<code>zombie.name</code>所在位置，backup表示中间存储的目录，之后训练过程中存储下来的weights文件都可以在这个目录下找到。</p>
+<p>现在我们就可以开始训练了，参照主页中的格式运行darknet：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./darknet detector train zombie.data yolov3-tiny.cfg darknet.conv.weights</span><br></pre></td></tr></table></figure></p>
+<p>最后一个命令行参数是pretrain的权重文件，关于YOLOv3-tiny的pretrain model可以在<a href="https://drive.google.com/open?id=11lE2rHE8S9lkyNhguACRaZkeFxKKuTZV" target="_blank" rel="noopener">此链接</a>处下载。</p>
+<p>训练好后，我们在<code>backup</code>的目录下找到<code>weights</code>文件，然后进行测试：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./darknet detector test zombie.data yolov3-tiny-testing.cfg backup/[weights file]</span><br></pre></td></tr></table></figure></p>
+<p>然后就可以看到目录下出现了一个<code>predictions.jpg</code>文件，如图：</p>
+<div style="width:100%;text-align:center" markdown="1"><br><img src="/2018/08/01/yolo-series-4/predictions.jpg" alt="predictions.jpg"><br></div>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/Object-Detection/">#Object Detection</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2018/08/01/yolo-series-5/">机器人小学期（5）：使用PyTorch实现YOLOv3-tiny</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2018/07/26/yolo-series-3/">机器人小学期（3）：YOLOv3</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNzY1Ny8xNDE4OA==">
+    <script type="text/javascript">
+        (function(d, s) {
+            var j, e = d.getElementsByTagName(s)[0];
+
+            if (typeof LivereTower === 'function') { return; }
+
+            j = d.createElement(s);
+            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            j.async = true;
+
+            e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+    </script>
+    <noscript> Please activate JavaScript for write a comment in LiveRe</noscript>
+</div>
+
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2018 Jing Wen&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" href="https://github.com/wenj">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

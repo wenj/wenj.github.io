@@ -27,10 +27,10 @@ Han Liu, Shifeng Zhang, Ke Lin, **Jing Wen**, Jianmin Li, Xiaolin Hu
 Educations
 ======
 **Carnegie Mellon University** \
-*M.S. in Language Technologies, Aug. 2019 - Aug. 2021 (expected)* \
+*M.S. in Language Technologies, Aug. 2019 - Aug. 2021 (expected)* 
 
 **Tsinghua University** \
-*B.Eng. in Computer Science and Technology, Aug. 2015 - Jul. 2019* \
+*B.Eng. in Computer Science and Technology, Aug. 2015 - Jul. 2019* 
 
 Internships
 ======

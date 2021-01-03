@@ -12,29 +12,29 @@ I’m a second year M.S. in Language Technologies (MLT) student at Carnegie Mell
 
 Publications/Preprints
 ======
-**Track, Check, Repeat: An EM Approach to Unsupervised Tracking** [pdf](https://wenj.github.io/pub/tracking_cvpr2021.pdf)
-*Manuscript currently under review, 2020*
+**Track, Check, Repeat: An EM Approach to Unsupervised Tracking** [[pdf]](https://wenj.github.io/pub/tracking_cvpr2021.pdf) \
+*Manuscript currently under review, 2020* \
 Adam Harley, Yiming Zuo, **Jing Wen**, Ayush Mangal, Shubhankar Potdar, Ritwick Chaudhry, Katerina Fragkiadaki
 
-**Vocabulary-Wide Credit Assignment for Training Image Captioning Models** [pdf](https://wenj.github.io/pub/caption_tip.pdf)
-*Transactions on Image Processing (TIP), 2020*
+**Vocabulary-Wide Credit Assignment for Training Image Captioning Models** [[pdf]](https://wenj.github.io/pub/caption_tip.pdf) \
+*Transactions on Image Processing (TIP), 2020* \
 Han Liu, Shifeng Zhang, Ke Lin, **Jing Wen**, Jianmin Li, Xiaolin Hu
 
-**Image Captioning with a Constraint of Image-to-Text Transformation** [pdf](https://wenj.github.io/pub/caption_cvpr2020.pdf)
-*Technical report, 2019*
+**Image Captioning with a Constraint of Image-to-Text Transformation** [[pdf]](https://wenj.github.io/pub/caption_cvpr2020.pdf) \
+*Technical report, 2019* \
 **Jing Wen**, Han Liu, Xiaolin Hu, Jianmin Li, Zhaoxiang Zhang
 
 Educations
 ======
-**Carnegie Mellon University**
-*M.S. in Language Technologies, Aug. 2019 - Aug. 2021 (expected)*
+**Carnegie Mellon University** \
+*M.S. in Language Technologies, Aug. 2019 - Aug. 2021 (expected)* \
 
-**Tsinghua University**
-*B.Eng. in Computer Science and Technology, Aug. 2015 - Jul. 2019*
+**Tsinghua University** \
+*B.Eng. in Computer Science and Technology, Aug. 2015 - Jul. 2019* \
 
 Internships
 ======
-**Boq and Apps Framework based Mobile Harness Front End V5**
+**Boq and Apps Framework based Mobile Harness Front End V5** \
 *Google Engineering Practicum Internship, 2017*
 
 

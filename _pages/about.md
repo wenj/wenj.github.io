@@ -8,26 +8,29 @@ redirect_from:
   - /about.html
 ---
 
-I’m a second year M.S. in Language Technologies (MLT) student at Carnegie Mellon University. I'm fortunately advised by [Prof. Katerina Fragkiadaki](https://www.cs.cmu.edu/~katef/). My current research interests lie at multimodal perception, 3D scene understanding and unsupervised learning. Before joining CMU, I received my B.Eng. in Computer Science and Technology from Tsinghua University, where I was advised by [Prof. Xiaolin Hu](http://www.xlhu.cn/) and [Prof. Jianmin Li](http://www.cs.tsinghua.edu.cn/publish/csen/4623/2010/20101225164517300815523/20101225164517300815523_.html). You can also find my [CV]() here.
+I’m a second year Computer Science Ph.D. student at UIUC. I'm fortunately advised by [Prof. Shenlong Wang](https://shenlong.web.illinois.edu/) and [Prof. Alex Schwing](https://www.alexander-schwing.de/). My current research interests lie at 3D vision with a focus on human modeling. Before joining UIUC, I received my Master of Language Technologies from CMU and B.Eng. in Computer Science and Technology from Tsinghua University.
 
 Publications/Preprints
 ======
+**GaussianAvatar: Efficient Animatable Human Modeling from Monocular Video Using Gaussians-on-Mesh** \
+*Under review* \
+**Jing Wen**, Xiaoming Zhao, Zhongzheng Ren, Alex Schwing, Shenlong Wang
+
 **Track, Check, Repeat: An EM Approach to Unsupervised Tracking** [[pdf]](https://wenj.github.io/pub/tracking_cvpr2021.pdf) \
-*Manuscript currently under review, 2020* \
+*The IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2021* \
 Adam Harley, Yiming Zuo, **Jing Wen**, Ayush Mangal, Shubhankar Potdar, Ritwick Chaudhry, Katerina Fragkiadaki
 
 **Vocabulary-Wide Credit Assignment for Training Image Captioning Models** [[pdf]](https://wenj.github.io/pub/caption_tip.pdf) \
 *Transactions on Image Processing (TIP), 2020* \
 Han Liu, Shifeng Zhang, Ke Lin, **Jing Wen**, Jianmin Li, Xiaolin Hu
 
-**Image Captioning with a Constraint of Image-to-Text Transformation** [[pdf]](https://wenj.github.io/pub/caption_cvpr2020.pdf) \
-*Technical report, 2019* \
-**Jing Wen**, Han Liu, Xiaolin Hu, Jianmin Li, Zhaoxiang Zhang
-
 Educations
 ======
+**University of Illinois Urbana-Champaign** \
+*Ph.D. in Computer Science, Aug. 2022 - present*
+
 **Carnegie Mellon University** \
-*M.S. in Language Technologies, Aug. 2019 - Aug. 2021 (expected)* 
+*M.S. in Language Technologies, Aug. 2019 - Aug. 2021* 
 
 **Tsinghua University** \
 *B.Eng. in Computer Science and Technology, Aug. 2015 - Jul. 2019* 

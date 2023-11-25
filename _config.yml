@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Jing Wen"
 title_separator          : ""
 name                     : &name "Jing Wen"
-description              : &description "MLT @ CMU"
+description              : &description "Ph.D. @ UIUC"
 url                      : https://wenj.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "wenj/wenj.github.io"
@@ -82,12 +82,12 @@ analytics:
 author:
   name             : "Jing Wen"
   avatar           : "profile.png"
-  bio              : "MLT candidate @ Carnegie Mellon University"
-  location         : "Pittsburgh, PA"
+  bio              : "Ph.D. @ UIUC"
+  location         : "Champaign, IL"
   employer         :
   pubmed           : # "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
   googlescholar    : # "http://yourfullgooglescholarurl.com"
-  email            : "jingwen2@andrew.cmu.edu"
+  email            : "jw116@illinois.edu"
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
   bitbucket        :

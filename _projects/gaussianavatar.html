@@ -1,0 +1,983 @@
+<!doctype html><meta charset=utf-8>
+
+<head>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="css/misc.css" rel="stylesheet" type="text/css">
+
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '');
+    </script>
+</head>
+
+<title>GaussianAvatar</title>
+
+<!-- <style>
+    body {
+      font-family: Roboto, "Roboto", sans-serif;
+      background: #F0F0F0;
+      color: #696969;
+      padding: 0px 40px 40px 40px;
+    }
+    h1 { 
+        display: block;
+        font-size: 2em;
+        margin-top: 0.67em;
+        margin-bottom: 0.67em;
+        margin-left: 0;
+        margin-right: 0;
+        font-weight: normal;
+        color: #000;
+        }
+    h2 { 
+        display: block;
+        font-size: 1.5em;
+        margin-top: 0.67em;
+        margin-bottom: 0.67em;
+        margin-left: 0;
+        margin-right: 0;
+        font-weight: normal;
+        color: #000;
+        }
+    h3 { 
+        display: block;
+        font-size: 1em;
+        margin-top: 0.67em;
+        margin-bottom: 0.67em;
+        margin-left: 0;
+        margin-right: 0;
+        font-weight: normal;
+        }
+    h4 { 
+        display: block;
+        font-size: 1.4em;
+        margin-top: 0.0em;
+        margin-bottom: 0.67em;
+        margin-left: 0;
+        margin-right: 0;
+        font-weight: normal;
+        color: #000;
+        }
+    img {
+      margin: 0px 10px 10px 0;
+    }
+    .img {
+      box-shadow: 1px 2px 5px 2px rgba(0, 0, 0, .15);
+      margin: 0px 10px 10px 0;
+    }
+    .logos {
+      margin: 0px 10px 10px 0;
+    }
+    .ib {
+      display: inline-block;
+      margin: 00px 20px 20px 0px;
+    }
+    .footer {
+	margin: 20px 0px 50px 0px;
+    width: 100%;
+    height: 100px;
+    float: center;
+	position: relative;
+    min-width: 800px;
+    }
+    .footerG {
+	margin: 20px 0px 0px 0px;
+    width: 200px;
+    height: 100px;
+    float: left;
+	position: relative;
+    }
+    .footerD {
+	margin: 20px 100px 0px 0px;
+    width: 300px;
+    height: 100px;
+    float: right;
+	position: relative;
+    }
+    .main {
+	margin: 0px 80px 0px 0px;
+    width: 100%;
+    float: left;
+	position: relative;
+    }
+    .superhero {
+    width: 100%;
+    /* height: 600px; */
+    position: relative;
+    min-width: 800px;
+    }
+    .title {
+	margin: 50px 0px 10px 0px;
+    width: 800px;
+    /* height: 500px; */
+    float: left;
+	position: relative;
+    }
+    .paper {
+	margin: 150px 100px 0px 0px;
+    width: 200px;
+    height: 500px;
+    float: right;
+	position: relative;
+    }
+    h1.name {
+	font-size: 40px;
+	font-weight: 300;
+    margin-bottom: 10px;
+	display: inline-block;
+    }
+    .email {
+	display: block;
+	font-size: 19px;
+	font-weight: 300;
+	color: #81899C;
+	margin-top: 0px;
+    display: inline-block;
+    }
+
+    .lead {
+	font-size: 20px;
+	font-weight: 300;
+	margin-top: 0px;
+	line-height: 30px;
+    display: inline-block;
+    }
+    .names {
+	font-size: 20px;
+	font-weight: 300;
+	margin-top: 0px;
+	line-height: 20px;
+    display: inline-block;
+    }
+    .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    }
+    .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    }
+    a.pagelink:link,
+    a.pagelink:visited,
+    a.pagelink:active { color: #81899C; text-decoration: none; }
+    a.pagelink:hover { color: #006699; text-decoration: underline; }
+
+    #videoal {
+        /* ... put any margin, padding, etc. here you like */
+    }
+
+    #videoal div.video {
+        display: inline-block;
+        zoom: 1;
+        *display: inline;
+        width: 500px;
+        /* height: 200px; */
+        margin: 0 10px 10px 0;
+    }
+
+    #videoal div.video video {
+        width: 100%;
+        height: 100%;
+    }
+</style> -->
+
+<!-- <div class="superhero"> -->
+    <!-- <div class="title" style="text-align:center"> -->
+    <div class="col-sm-12" style="text-align: center;">
+        <h1 class="name">GaussianAvatar: Efficient Animatable Human Modeling from Monocular Video Using Gaussians-on-Mesh</h1><br>
+    </div>
+    <!-- </div> -->
+<!-- </div> -->
+
+<div class="main">
+    <!-- <h1 style="text-align:left;">NVIDIA Dynamic Scenes</h1> -->
+    <section class="section" id="abstract">
+    	<div class="container">
+    		<hr>
+			<h1 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;">Abstract</h1><br>
+
+			<div class="col-12 text-left">
+				<p style="text-align:left">
+					We introduce GaussianAvatar, a novel approach for real-time, memory-efficient, high-quality animatable human modeling. GaussianAvatar takes as input a single monocular video to create a digital avatar capable of re-articulation in new poses and real-time rendering from novel viewpoints, while seamlessly integrating with rasterization-based graphics pipelines. Central to our method is the Gaussians-on-Mesh representation, a hybrid 3D model combining rendering quality and speed of Gaussian splatting with geometry modeling and compatibility of deformable meshes. We assess GaussianAvatar on ZJU-MoCap data and various YouTube videos. GaussianAvatar matches or surpasses current monocular human modeling algorithms in rendering quality and significantly outperforms them in computational efficiency (43 FPS) while being memory-efficient (3.63 MB per subject).
+				</p>
+			</div>
+
+		   <div class="col-12 pull-right" style="text-align: center;">
+                <div class="embed-responsive embed-responsive-25by1">
+                    <div><img src="./videos/teaser.png" class="img" width="100%">
+                    </div>
+                </div>
+            </div>
+    	</div>
+    </section>
+
+    <section class="section" id="nps">
+		<div class="container">
+
+			<hr>
+			<h1 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;">Novel Pose Synthesis</h1>
+
+            <div class="col-12 text-center">
+				<p style="text-align:center">
+					In the following we present novel pose synthesis. We use the texts from HumanML3D and Human Motion Diffusion Model (MDM) to generate the target poses.
+				</p>
+			</div>
+
+            <div class="container">
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;"><b>ZJU-MoCap Subject 377</b></h5>
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;">"Moving hands around near face."</h5>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/377_sample01_rep00_pose.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Target pose</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/377_sample01_rep00_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/377_sample01_rep00_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/377_sample01_rep00_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="container">
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;"><b>ZJU-MoCap Subject 387</b></h5>
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;">"A person crosses their arms."</h5>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/387_sample02_rep00_pose.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Target pose</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/387_sample02_rep00_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/387_sample02_rep00_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/387_sample02_rep00_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="container">
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;"><b>ZJU-MoCap Subject 392</b></h5>
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;">"Running forward in a diagonal line."</h5>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/392_sample07_rep00_pose.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Target pose</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/392_sample07_rep00_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/392_sample07_rep00_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/392_sample07_rep00_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="container">
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;"><b>ZJU-MoCap Subject 393</b></h5>
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;">"He is running down then stopped and moved his left hand."</h5>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/393_sample06_rep00_pose.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Target pose</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/393_sample06_rep00_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/393_sample06_rep00_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/393_sample06_rep00_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="container">
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;"><b>ZJU-MoCap Subject 394</b></h5>
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;">"A man crouches down as he walks forward and kicks with his right leg."</h5>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/394_sample05_rep00_pose.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Target pose</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/394_sample05_rep00_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/394_sample05_rep00_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/394_sample05_rep00_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="container">
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;"><b>Youtube Videos</b></h5>
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;">"A person remained sitting down."</h5>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/wildvideo2_sample00_rep00_pose.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Target pose</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/wildvideo2_sample00_rep00_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/wildvideo2_sample00_rep00_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/wildvideo2_sample00_rep00_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/wildvideo1_sample00_rep00_pose.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Target pose</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/wildvideo1_sample00_rep00_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/wildvideo1_sample00_rep00_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/wildvideo1_sample00_rep00_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/wildvideo0_sample00_rep00_pose.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Target pose</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/wildvideo0_sample00_rep00_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/wildvideo0_sample00_rep00_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nps_mdm/wildvideo0_sample00_rep00_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+		</div>
+	</section>
+
+    <section class="section" id="nvs">
+		<div class="container">
+
+			<hr>
+			<h1 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;">Novel View Synthesis</h1>
+
+            <div class="col-12 text-center">
+				<p style="text-align:center">
+					In the following we present 360&deg freeview rendering as well as the rendered normal maps.
+				</p>
+			</div>
+
+            <div class="container">
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;"><b>ZJU-MoCap Subject 377</b></h5>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div><img src="./videos/nvs/377_frame000090_rgb_gt.png" class="img" width="100%">
+                            <h5>Reference image</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/377_frame000090_rgb_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/377_frame000090_rgb_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/377_frame000090_rgb_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/377_frame000090_normal_gt.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Pseudo ground-truth</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/377_frame000090_normal_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/377_frame000090_normal_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/377_frame000090_normal_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="container">
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;"><b>ZJU-MoCap Subject 386</b></h5>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div><img src="./videos/nvs/386_frame000180_rgb_gt.png" class="img" width="100%">
+                            <h5>Reference image</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/386_frame000180_rgb_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/386_frame000180_rgb_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/386_frame000180_rgb_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/386_frame000180_normal_gt.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Pseudo ground-truth</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/386_frame000180_normal_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/386_frame000180_normal_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/386_frame000180_normal_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="container">
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;"><b>ZJU-MoCap Subject 387</b></h5>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div><img src="./videos/nvs/387_frame000150_rgb_gt.png" class="img" width="100%">
+                            <h5>Reference image</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/387_frame000150_rgb_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/387_frame000150_rgb_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/387_frame000150_rgb_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/387_frame000150_normal_gt.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Pseudo ground-truth</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/387_frame000150_normal_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/387_frame000150_normal_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/387_frame000150_normal_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="container">
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;"><b>ZJU-MoCap Subject 392</b></h5>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div><img src="./videos/nvs/392_frame000030_rgb_gt.png" class="img" width="100%">
+                            <h5>Reference image</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/392_frame000030_rgb_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/392_frame000030_rgb_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/392_frame000030_rgb_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/392_frame000030_normal_gt.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Pseudo ground-truth</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/392_frame000030_normal_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/392_frame000030_normal_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/392_frame000030_normal_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="container">
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;"><b>ZJU-MoCap Subject 393</b></h5>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div><img src="./videos/nvs/393_frame000120_rgb_gt.png" class="img" width="100%">
+                            <h5>Reference image</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/393_frame000120_rgb_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/393_frame000120_rgb_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/393_frame000120_rgb_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/393_frame000120_normal_gt.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Pseudo ground-truth</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/393_frame000120_normal_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/393_frame000120_normal_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/393_frame000120_normal_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="container">
+                <h5 style="text-align:center; margin-top: 0pt; margin-bottom: 0pt;"><b>ZJU-MoCap Subject 394</b></h5>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div><img src="./videos/nvs/394_frame000090_rgb_gt.png" class="img" width="100%">
+                            <h5>Reference image</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/394_frame000090_rgb_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/394_frame000090_rgb_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/394_frame000090_rgb_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/394_frame000090_normal_gt.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>Pseudo ground-truth</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/394_frame000090_normal_hn.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>HumanNeRF</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/394_frame000090_normal_mh.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>MonoHuman</h5>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6 col-sm-3 pull-right" style="text-align: center;">
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <video widthcontrols loop autoplay muted>
+                                <source src="./videos/nvs/394_frame000090_normal_ours.mp4" type="video/mp4"><br>
+                            </video>
+                        </div>
+                        <h5>GaussianAvatar (Ours)</h5>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</section>
+
+</div>

@@ -12,8 +12,8 @@ I’m a second year Computer Science Ph.D. student at UIUC. I'm fortunately advi
 
 Publications/Preprints
 ======
-**GaussianAvatar: Efficient Animatable Human Modeling from Monocular Video Using Gaussians-on-Mesh** \
-*Under review* \
+**GoMAvatar: Efficient Animatable Human Modeling from Monocular Video Using Gaussians-on-Mesh** [[project page]](https://wenj.github.io/GoMAvatar/) [[pdf]](https://arxiv.org/abs/2404.07991) [[codes]](https://github.com/wenj/GoMAvatar)\
+*The IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2024* \
 **Jing Wen**, Xiaoming Zhao, Zhongzheng Ren, Alex Schwing, Shenlong Wang
 
 **Track, Check, Repeat: An EM Approach to Unsupervised Tracking** [[pdf]](https://wenj.github.io/pub/tracking_cvpr2021.pdf) \

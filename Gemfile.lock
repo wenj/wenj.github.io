@@ -233,7 +233,8 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rexml (3.2.4)
+    rexml (3.3.6)
+      strscan
     rouge (3.23.0)
     ruby-enum (0.8.0)
       i18n
@@ -250,6 +251,8 @@ GEM
       faraday (> 0.8, < 2.0)
     simpleidn (0.1.1)
       unf (~> 0.1.4)
+    strscan (3.1.0)
+    strscan (3.1.0-java)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     thread_safe (0.3.6)
@@ -263,7 +266,6 @@ GEM
     unf (0.1.4-java)
     unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
-    wdm (0.1.1)
     zeitwerk (2.4.2)
 
 PLATFORMS
@@ -271,13 +273,13 @@ PLATFORMS
   x64-mingw32
   x86-mingw32
   x86-mswin32
+  x86_64-linux
 
 DEPENDENCIES
   github-pages
   hawkins
   jekyll-feed
   jekyll-sitemap
-  wdm (~> 0.1.0)
 
 BUNDLED WITH
    2.2.3

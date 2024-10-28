@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-I’m a second year Computer Science Ph.D. student at UIUC. I'm fortunately advised by [Prof. Shenlong Wang](https://shenlong.web.illinois.edu/) and [Prof. Alex Schwing](https://www.alexander-schwing.de/). My current research interests lie at 3D vision with a focus on human modeling. Before joining UIUC, I received my Master of Language Technologies from CMU and B.Eng. in Computer Science and Technology from Tsinghua University.
+I’m a third year Computer Science Ph.D. student at UIUC. I'm fortunately advised by [Prof. Shenlong Wang](https://shenlong.web.illinois.edu/) and [Prof. Alex Schwing](https://www.alexander-schwing.de/). My current research interests lie at 3D vision with a focus on human modeling. Before joining UIUC, I received my Master of Language Technologies from CMU and B.Eng. in Computer Science and Technology from Tsinghua University. Please find my latest [CV](/cv) here.
 
 Publications/Preprints
 ======

@@ -50,7 +50,7 @@ Educations
 
 Internships
 ======
-**Time-consistent Controllable Human Animation with Diffusion Models**
+**Time-consistent Controllable Human Animation with Diffusion Models** \
 *Research intern, Meta, May. 2025 - present*
 
 **Boq and Apps Framework based Mobile Harness Front End V5** \

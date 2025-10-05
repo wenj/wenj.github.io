@@ -12,24 +12,29 @@ I’m a fourth year Computer Science Ph.D. student at UIUC. I'm fortunately advi
 
 Publications
 ======
-**NoPo-Avatar: Generalizable and Animatable Avatars from Sparse Inputs without Human Poses** [coming soon]
-*Conference on Neural Information Processing Systems (NeurIPS), 2025*
+**NoPo-Avatar: Generalizable and Animatable Avatars from Sparse Inputs without Human Poses**\
+[coming soon]\
+*Conference on Neural Information Processing Systems (NeurIPS), 2025*\
 **Jing Wen**, Alex Schwing, Shenlong Wang
 
-**LIFe-GoM: Generalizable Human Rendering with Learned Iterative Feedback Over Multi-Resolution Gaussians-on-Mesh** [[project page]](https://wenj.github.io/LIFe-GoM/) [[pdf]](https://arxiv.org/abs/2502.09617) [[codes]](https://github.com/wenj/LIFe-GoM)
-*International Conference on Learning Representations (ICLR), 2025*
+**LIFe-GoM: Generalizable Human Rendering with Learned Iterative Feedback Over Multi-Resolution Gaussians-on-Mesh**\
+[[project page]](https://wenj.github.io/LIFe-GoM/) [[pdf]](https://arxiv.org/abs/2502.09617) [[codes]](https://github.com/wenj/LIFe-GoM)\
+*International Conference on Learning Representations (ICLR), 2025*\
 **Jing Wen**, Alex Schwing, Shenlong Wang
 
-**GoMAvatar: Efficient Animatable Human Modeling from Monocular Video Using Gaussians-on-Mesh** [[project page]](https://wenj.github.io/GoMAvatar/) [[pdf]](https://arxiv.org/abs/2404.07991) [[codes]](https://github.com/wenj/GoMAvatar)\
-*The IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2024* \
+**GoMAvatar: Efficient Animatable Human Modeling from Monocular Video Using Gaussians-on-Mesh**\
+[[project page]](https://wenj.github.io/GoMAvatar/) [[pdf]](https://arxiv.org/abs/2404.07991) [[codes]](https://github.com/wenj/GoMAvatar)\
+*The IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2024*\
 **Jing Wen**, Xiaoming Zhao, Zhongzheng Ren, Alex Schwing, Shenlong Wang
 
-**Track, Check, Repeat: An EM Approach to Unsupervised Tracking** [[project page]](https://track-check-repeat.github.io/) [[pdf]](https://wenj.github.io/pub/tracking_cvpr2021.pdf) [[codes]](https://github.com/aharley/track_check_repeat) \
-*The IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2021* \
+**Track, Check, Repeat: An EM Approach to Unsupervised Tracking**\
+[[project page]](https://track-check-repeat.github.io/) [[pdf]](https://wenj.github.io/pub/tracking_cvpr2021.pdf) [[codes]](https://github.com/aharley/track_check_repeat) \
+*The IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2021*\
 Adam Harley, Yiming Zuo, **Jing Wen**, Ayush Mangal, Shubhankar Potdar, Ritwick Chaudhry, Katerina Fragkiadaki
 
-**Vocabulary-Wide Credit Assignment for Training Image Captioning Models** [[pdf]](https://wenj.github.io/pub/caption_tip.pdf) \
-*Transactions on Image Processing (TIP), 2020* \
+**Vocabulary-Wide Credit Assignment for Training Image Captioning Models**\
+[[pdf]](https://wenj.github.io/pub/caption_tip.pdf) \
+*Transactions on Image Processing (TIP), 2020*\
 Han Liu, Shifeng Zhang, Ke Lin, **Jing Wen**, Jianmin Li, Xiaolin Hu
 
 Educations
